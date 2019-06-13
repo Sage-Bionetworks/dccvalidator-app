@@ -7,6 +7,7 @@ library("shiny")
 library("shinydashboard")
 library("synapser")
 library("purrr")
+library("emo")
 library("dccvalidator")
 
 ## Enable bookmarking
@@ -86,4 +87,14 @@ report_missing_cols <- function(data, fun, name, ...) {
   } else {
     res <- paste0("Hooray! No columns missing from ", name, " metadata template!")
   }
+}
+
+report_result <- function(result, emoji_prefix = NULL) {
+  div(
+    p(emo::ji(emoji_prefix), result$message),
+    br()
+  )
+}
+report_results <- function(results, emoji_prefix = NULL) {
+  map(results, report_result, emoji_prefix = emoji_prefix)
 }

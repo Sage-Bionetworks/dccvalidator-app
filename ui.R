@@ -76,26 +76,38 @@ ui <- function(request) {
         mainPanel(
           tabsetPanel(
             tabPanel(
-              "Metadata",
-              h2("Checking column names"),
-              uiOutput("missing_cols_indiv"),
-              uiOutput("missing_cols_biosp"),
-              uiOutput("missing_cols_assay"),
-              h2("Checking individual IDs"),
-              uiOutput("individual_ids"),
-              h2("Checking specimen IDs"),
-              uiOutput("specimen_ids")
+              "Validation Results",
+              br(),
+              box(
+                uiOutput("successes"),
+                solidHeader = TRUE,
+                collapsible = TRUE,
+                title = "Successes",
+                status = "success",
+                width = 12,
+                collapsed = TRUE
+              ),
+              box(
+                uiOutput("warnings"),
+                solidHeader = TRUE,
+                collapsible = TRUE,
+                title = "Warnings",
+                status = "warning",
+                width = 12,
+                collapsed = TRUE
+              ),
+              box(
+                uiOutput("failures"),
+                solidHeader = TRUE,
+                collapsible = TRUE,
+                title = "Failures",
+                status = "danger",
+                width = 12
+              )
             ),
             tabPanel(
-              "Manifest",
-              h2("Checking manifest columns"),
-              uiOutput("manifest_cols"),
-              h2("Checking annotation keys"),
-              uiOutput("annot_keys"),
-              h2("Checking annotation values"),
-              uiOutput("annot_values"),
-              h2("Checking specimen IDs"),
-              uiOutput("specimen_ids_manifest")
+              "Data summary",
+              h2("Coming soon...")
             )
           )
         )
