@@ -4,6 +4,7 @@
 
 library("DT")
 library("shiny")
+library("shinydashboard")
 library("synapser")
 library("purrr")
 library("dccvalidator")
