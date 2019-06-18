@@ -17,10 +17,20 @@ enableBookmarking(store = "url")
 ####  Functions  ####
 #####################
 
-report_result <- function(result, emoji_prefix = NULL) {
-  p(emo::ji(emoji_prefix), result$message)
+report_result <- function(result, emoji_prefix = NULL, verbose = FALSE) {
+  if (isTRUE(verbose)) {
+    div(
+      p(
+        emo::ji(emoji_prefix),
+        result$message,
+        tags$details(paste0(result$data, collapse = ", "))
+      )
+    )
+  } else {
+    p(emo::ji(emoji_prefix), result$message)
+  }
 }
 
-report_results <- function(results, emoji_prefix = NULL) {
-  map(results, report_result, emoji_prefix = emoji_prefix)
+report_results <- function(results, ...) {
+  map(results, report_result, ...)
 }

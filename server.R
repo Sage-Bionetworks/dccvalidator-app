@@ -81,13 +81,13 @@ server <- function(input, output, session) {
     ## Warnings box
     output$warnings <- renderUI({
       warnings <- res()[map_lgl(res(), function(x) {inherits(x, "check_warn")})]
-      report_results(warnings, emoji_prefix = "warning")
+      report_results(warnings, emoji_prefix = "warning", verbose = TRUE)
     })
 
     ## Failures box
     output$failures <- renderUI({
       failures <- res()[map_lgl(res(), function(x) {inherits(x, "check_fail")})]
-      report_results(failures, emoji_prefix = "x")
+      report_results(failures, emoji_prefix = "x", verbose = TRUE)
     })
   })
 }
