@@ -70,12 +70,21 @@ server <- function(input, output, session) {
     missing_cols_assay <- reactive({
       check_cols_assay(assay(), assay_name())
     })
+    individual_ids_indiv_biosp <- reactive({
+      check_indiv_ids(indiv(), biosp(), "individual", "biospecimen")
+    })
+    specimen_ids_biosp_assay <- reactive({
+      check_specimen_ids(biosp(), assay(), "biospecimen", "assay")
+    })
 
+    ## List results
     res <- reactive({
       list(
         missing_cols_indiv(),
         missing_cols_biosp(),
-        missing_cols_assay()
+        missing_cols_assay(),
+        individual_ids_indiv_biosp(),
+        specimen_ids_biosp_assay()
       )
     })
 
