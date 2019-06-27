@@ -60,9 +60,16 @@ server <- function(input, output, session) {
     ####  Validation Results  ####
     ##############################
 
-    missing_cols_indiv <- reactive({check_cols_individual(indiv(), species_name())})
-    missing_cols_biosp <- reactive({check_cols_biospecimen(biosp())})
-    missing_cols_assay <- reactive({check_cols_assay(assay(), assay_name())})
+    ## Perform checks
+    missing_cols_indiv <- reactive({
+      check_cols_individual(indiv(), species_name())
+    })
+    missing_cols_biosp <- reactive({
+      check_cols_biospecimen(biosp())
+    })
+    missing_cols_assay <- reactive({
+      check_cols_assay(assay(), assay_name())
+    })
 
     res <- reactive({
       list(
