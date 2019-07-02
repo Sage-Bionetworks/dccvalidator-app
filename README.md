@@ -14,5 +14,4 @@ package:
 remotes::install_github("Sage-Bionetworks/dccvalidator@custom-conditions")
 ```
 
-TODO: add screenshot
-
+![screenshot of a dashboard reporting some passed and some failed validation checks in green and red boxes](app_screenshot.png)
