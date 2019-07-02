@@ -70,11 +70,23 @@ server <- function(input, output, session) {
     missing_cols_assay <- reactive({
       check_cols_assay(assay(), assay_name())
     })
+    missing_cols_manifest <- reactive({
+      check_cols_manifest(manifest())
+    })
     individual_ids_indiv_biosp <- reactive({
       check_indiv_ids(indiv(), biosp(), "individual", "biospecimen")
     })
     specimen_ids_biosp_assay <- reactive({
       check_specimen_ids(biosp(), assay(), "biospecimen", "assay")
+    })
+    specimen_ids_biosp_manifest <- reactive({
+      check_specimen_ids(biosp(), manifest(), "biospecimen", "manifest")
+    })
+    annotation_keys_manifest <- reactive({
+      check_annotation_keys(manifest(), whitelist_keys = c("path", "parent"))
+    })
+    annotation_values_manifest <- reactive({
+      check_annotation_values(manifest())
     })
 
     ## List results
@@ -83,8 +95,12 @@ server <- function(input, output, session) {
         missing_cols_indiv(),
         missing_cols_biosp(),
         missing_cols_assay(),
+        missing_cols_manifest(),
         individual_ids_indiv_biosp(),
-        specimen_ids_biosp_assay()
+        specimen_ids_biosp_assay(),
+        specimen_ids_biosp_manifest(),
+        annotation_keys_manifest(),
+        annotation_values_manifest()
       )
     })
 
