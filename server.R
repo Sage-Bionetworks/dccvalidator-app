@@ -17,9 +17,21 @@ server <- function(input, output, session) {
     ## Download annotation definitions
     annots <- get_synapse_annotations()
 
+    ## Create folder for upload
+    user <- synGetUserProfile()
+    new_folder <- Folder(name = user$get("userName"), parent = "syn20400157")
+    created_folder <- synStore(new_folder)
+    ## figure out how to set folder permissions here
+
     # Load data files
     manifest <- reactive({
       validate(need(input$manifest, "Please upload manifest file"))
+
+      ## Upload
+      file_to_upload <- File(input$manifest$datapath, parent = created_folder)
+      synStore(file_to_upload)
+
+      ## Read in data
       read.table(
         input$manifest$datapath,
         sep = "\t",
