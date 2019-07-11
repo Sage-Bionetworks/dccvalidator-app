@@ -9,6 +9,7 @@ library("synapser")
 library("purrr")
 library("emo")
 library("dccvalidator")
+library("shinyBS")
 
 ## Enable bookmarking
 enableBookmarking(store = "url")
@@ -28,9 +29,12 @@ report_result <- function(result, emoji_prefix = NULL, verbose = FALSE) {
         ## Include details drawer for verbose == TRUE
         tags$details(paste0(result$data, collapse = ", "))
       ),
-      div(
-        class = "more-info",
-        p(result$behavior)
+      popify(
+        tags$a(icon(name = "question-circle"), href = "#"),
+        "Information",
+        result$behavior,
+        placement = "left",
+        trigger = "click"
       )
     )
   } else {
@@ -41,9 +45,12 @@ report_result <- function(result, emoji_prefix = NULL, verbose = FALSE) {
         emo::ji(emoji_prefix),
         result$message
       ),
-      div(
-        class = "more-info",
-        p(result$behavior)
+      popify(
+        tags$a(icon(name = "question-circle"), href = "#"),
+        "Information",
+        result$behavior,
+        placement = "left",
+        trigger = "click"
       )
     )
   }
