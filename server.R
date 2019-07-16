@@ -25,30 +25,42 @@ server <- function(input, output, session) {
     ## Upload files to Synapse (after renaming them so they keep their original
     ## names)
     observeEvent(input$manifest, {
-      m <- rename_uploaded_file(input$manifest)
-      save_to_synapse(m, parent = created_folder)
+      save_to_synapse(
+        input$manifest,
+        parent = created_folder,
+        name = input$manifest$name
+      )
     })
 
     observeEvent(input$indiv_meta, {
-      i <- rename_uploaded_file(input$indiv_meta)
-      save_to_synapse(i, parent = created_folder)
+      save_to_synapse(
+        input$indiv_meta,
+        parent = created_folder,
+        name = input$indiv_meta$name
+      )
     })
 
     observeEvent(input$biosp_meta, {
-      b <- rename_uploaded_file(input$biosp_meta)
-      save_to_synapse(b, parent = created_folder)
+      save_to_synapse(
+        input$biosp_meta,
+        parent = created_folder,
+        name = input$biosp_meta$name
+      )
     })
 
     observeEvent(input$assay_meta, {
-      a <- rename_uploaded_file(input$assay_meta)
-      save_to_synapse(a, parent = created_folder)
+      save_to_synapse(
+        input$assay_meta,
+        parent = created_folder,
+        name = input$assay_meta$name
+      )
     })
 
     ## Load metadata files into session
     manifest <- reactive({
       validate(need(input$manifest, "Please upload manifest file"))
       read.table(
-        get_new_file_path(input$manifest),
+        input$manifest$datapath,
         sep = "\t",
         header = TRUE,
         na.strings = ""
@@ -56,15 +68,15 @@ server <- function(input, output, session) {
     })
     indiv <- reactive({
       validate(need(input$indiv_meta, "Upload individual metadata"))
-      read.csv(get_new_file_path(input$indiv_meta))
+      read.csv(input$indiv_meta$datapath)
     })
     biosp <- reactive({
       validate(need(input$biosp_meta, "Upload biospecimen metadata"))
-      read.csv(get_new_file_path(input$biosp_meta))
+      read.csv(input$biosp_meta$datapath)
     })
     assay <- reactive({
       validate(need(input$assay_meta, "Upload assay metadata"))
-      read.csv(get_new_file_path(input$assay_meta))
+      read.csv(input$assay_meta$datapath)
     })
     species_name <- reactive({input$species})
     assay_name <- reactive({input$assay})

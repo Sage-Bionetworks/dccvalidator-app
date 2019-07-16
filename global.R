@@ -84,29 +84,12 @@ show_details.list <- function(x) {
   renderTable(dat, colnames = FALSE)
 }
 
-## Rename uploaded files back to their original name (so they get saved to
-## synapse with the correct name)
-rename_uploaded_file <- function(x) {
-  if (is.null(x)) {
-    return()
-  }
-
-  ## new <- file.path(dirname(x$datapath), x$name)
-  new <- get_new_file_path(x)
-  file.rename(from = x$datapath, to = new)
-  x$datapath <- new
-  x
-}
-
-## Generate new file name from input (this is used in `rename_uploaded_file()`
-## and also used directly in the app so that it can read in data after it has
-## been renamed)
-get_new_file_path <- function(input) {
-  file.path(dirname(input$datapath), input$name)
-}
-
 ## Save uploaded files to Synapse
-save_to_synapse <- function(input_file, parent) {
-  file_to_upload <- File(input_file$datapath, parent = parent)
+save_to_synapse <- function(input_file, parent, name = NULL) {
+  file_to_upload <- File(
+    input_file$datapath,
+    parent = parent,
+    name = name
+  )
   synStore(file_to_upload)
 }
