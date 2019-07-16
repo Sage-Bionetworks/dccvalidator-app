@@ -19,7 +19,7 @@ server <- function(input, output, session) {
 
     ## Create folder for upload
     user <- synGetUserProfile()
-    new_folder <- Folder(name = user$get("userName"), parent = "syn20400157")
+    new_folder <- Folder(name = user$get("userName"), parent = "syn20506363")
     created_folder <- synStore(new_folder)
 
     ## Upload files to Synapse (after renaming them so they keep their original
