@@ -21,19 +21,34 @@ server <- function(input, output, session) {
     user <- synGetUserProfile()
     new_folder <- Folder(name = user$get("userName"), parent = "syn20400157")
     created_folder <- synStore(new_folder)
-    ## figure out how to set folder permissions here
 
-    # Load data files
+    ## Upload files to Synapse (after renaming them so they keep their original
+    ## names)
+    observeEvent(input$manifest, {
+      m <- rename_uploaded_file(input$manifest)
+      save_to_synapse(m, parent = created_folder)
+    })
+
+    observeEvent(input$indiv_meta, {
+      i <- rename_uploaded_file(input$indiv_meta)
+      save_to_synapse(i, parent = created_folder)
+    })
+
+    observeEvent(input$biosp_meta, {
+      b <- rename_uploaded_file(input$biosp_meta)
+      save_to_synapse(b, parent = created_folder)
+    })
+
+    observeEvent(input$assay_meta, {
+      a <- rename_uploaded_file(input$assay_meta)
+      save_to_synapse(a, parent = created_folder)
+    })
+
+    ## Load metadata files into session
     manifest <- reactive({
       validate(need(input$manifest, "Please upload manifest file"))
-
-      ## Upload
-      file_to_upload <- File(input$manifest$datapath, parent = created_folder)
-      synStore(file_to_upload)
-
-      ## Read in data
       read.table(
-        input$manifest$datapath,
+        get_new_file_path(input$manifest),
         sep = "\t",
         header = TRUE,
         na.strings = ""
@@ -41,15 +56,15 @@ server <- function(input, output, session) {
     })
     indiv <- reactive({
       validate(need(input$indiv_meta, "Upload individual metadata"))
-      indiv <- read.csv(input$indiv_meta$datapath)
+      read.csv(get_new_file_path(input$indiv_meta))
     })
     biosp <- reactive({
       validate(need(input$biosp_meta, "Upload biospecimen metadata"))
-      biosp <- read.csv(input$biosp_meta$datapath)
+      read.csv(get_new_file_path(input$biosp_meta))
     })
     assay <- reactive({
       validate(need(input$assay_meta, "Upload assay metadata"))
-      assay <- read.csv(input$assay_meta$datapath)
+      read.csv(get_new_file_path(input$assay_meta))
     })
     species_name <- reactive({input$species})
     assay_name <- reactive({input$assay})
