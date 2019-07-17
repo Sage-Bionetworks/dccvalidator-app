@@ -23,7 +23,8 @@ to_install <- c(
   "shinydashboard",
   "skimr",
   "synapser",
-  "tibble"
+  "tibble",
+  "visdat"
 )
 install.packages(to_install)
 

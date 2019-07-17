@@ -68,15 +68,15 @@ server <- function(input, output, session) {
     })
     indiv <- reactive({
       validate(need(input$indiv_meta, "Upload individual metadata"))
-      read.csv(input$indiv_meta$datapath)
+      read.csv(input$indiv_meta$datapath, na.strings = "")
     })
     biosp <- reactive({
       validate(need(input$biosp_meta, "Upload biospecimen metadata"))
-      read.csv(input$biosp_meta$datapath)
+      read.csv(input$biosp_meta$datapath, na.strings = "")
     })
     assay <- reactive({
       validate(need(input$assay_meta, "Upload assay metadata"))
-      read.csv(input$assay_meta$datapath)
+      read.csv(input$assay_meta$datapath, na.strings = "")
     })
     species_name <- reactive({input$species})
     assay_name <- reactive({input$assay})
@@ -231,7 +231,7 @@ server <- function(input, output, session) {
       )
     })
 
-    output$datafilesummary <- renderPrint({
+    output$datafileskim <- renderPrint({
       dat <- switch(
         input$file_to_summarize,
         "indiv" = indiv(),
@@ -256,6 +256,17 @@ server <- function(input, output, session) {
         )
       )
       skim(dat)
+    })
+    output$datafilevisdat <- renderPlot({
+      dat <- switch(
+        input$file_to_summarize,
+        "indiv" = indiv(),
+        "biosp" = biosp(),
+        "assay" = assay(),
+        "manifest" = manifest()
+      )
+      vis_dat(dat) +
+        theme(text = element_text(size = 16))
     })
   })
 }

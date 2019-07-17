@@ -12,6 +12,7 @@ library("emo")
 library("dccvalidator")
 library("shinyBS")
 library("tibble")
+library("visdat")
 
 #####################
 ####  Functions  ####
