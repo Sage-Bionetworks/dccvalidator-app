@@ -226,7 +226,7 @@ server <- function(input, output, session) {
             manifest()$path
           )
         ),
-        "Files in manifest",
+        "Data files in manifest",
         icon = icon("file")
       )
     })
