@@ -193,5 +193,42 @@ server <- function(input, output, session) {
       failures <- res()[map_lgl(res(), function(x) {inherits(x, "check_fail")})]
       report_results(failures, emoji_prefix = "x", verbose = TRUE)
     })
+
+    ## Counts of individuals, specimens, and files
+    output$nindividuals <- renderValueBox({
+      valueBox(
+        length(
+          unique(
+            c(indiv()$individualID, biosp()$individualID)
+          )
+        ),
+        "Individuals",
+        icon = icon("users")
+      )
+    })
+
+    output$nspecimens <- renderValueBox({
+      valueBox(
+        length(
+          unique(
+            c(biosp()$specimenID, assay()$specimenID, manifest()$specimenID)
+          )
+        ),
+        "Specimens",
+        icon = icon("vial")
+      )
+    })
+
+    output$ndatafiles <- renderValueBox({
+      valueBox(
+        length(
+          unique(
+            manifest()$path
+          )
+        ),
+        "Files in manifest",
+        icon = icon("file")
+      )
+    })
   })
 }

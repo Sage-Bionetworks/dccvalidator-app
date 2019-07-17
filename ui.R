@@ -108,7 +108,11 @@ ui <- function(request) {
             ),
             tabPanel(
               "Data summary",
-              h2("Coming soon...")
+              fluidRow(
+                valueBoxOutput("nindividuals"),
+                valueBoxOutput("nspecimens"),
+                valueBoxOutput("ndatafiles")
+              )
             )
           )
         )
