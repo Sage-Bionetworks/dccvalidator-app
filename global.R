@@ -5,6 +5,7 @@
 library("DT")
 library("shiny")
 library("shinydashboard")
+library("skimr")
 library("synapser")
 library("purrr")
 library("emo")

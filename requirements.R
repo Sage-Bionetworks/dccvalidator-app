@@ -21,6 +21,7 @@ to_install <- c(
   "remotes",
   "shinyBS",
   "shinydashboard",
+  "skimr",
   "synapser",
   "tibble"
 )

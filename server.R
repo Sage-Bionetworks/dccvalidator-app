@@ -230,5 +230,32 @@ server <- function(input, output, session) {
         icon = icon("file")
       )
     })
+
+    output$datafilesummary <- renderPrint({
+      dat <- switch(
+        input$file_to_summarize,
+        "indiv" = indiv(),
+        "biosp" = biosp(),
+        "assay" = assay(),
+        "manifest" = manifest()
+      )
+      skim_with(
+        numeric = list(
+          p0 = NULL,
+          p25 = NULL,
+          p50 = NULL,
+          p75 = NULL,
+          p100 = NULL
+        ),
+        integer = list(
+          p0 = NULL,
+          p25 = NULL,
+          p50 = NULL,
+          p75 = NULL,
+          p100 = NULL
+        )
+      )
+      skim(dat)
+    })
   })
 }
