@@ -58,7 +58,7 @@ server <- function(input, output, session) {
 
     ## Load metadata files into session
     manifest <- reactive({
-      validate(need(input$manifest, "Please upload manifest file"))
+      if (is.null(input$manifest)) return(NULL)
       read.table(
         input$manifest$datapath,
         sep = "\t",
@@ -67,15 +67,15 @@ server <- function(input, output, session) {
       )
     })
     indiv <- reactive({
-      validate(need(input$indiv_meta, "Upload individual metadata"))
+      if (is.null(input$indiv_meta)) return(NULL)
       read.csv(input$indiv_meta$datapath, na.strings = "")
     })
     biosp <- reactive({
-      validate(need(input$biosp_meta, "Upload biospecimen metadata"))
+      if (is.null(input$biosp_meta)) return(NULL)
       read.csv(input$biosp_meta$datapath, na.strings = "")
     })
     assay <- reactive({
-      validate(need(input$assay_meta, "Upload assay metadata"))
+      if (is.null(input$assay_meta)) return(NULL)
       read.csv(input$assay_meta$datapath, na.strings = "")
     })
     species_name <- reactive({input$species})
