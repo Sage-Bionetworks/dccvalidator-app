@@ -379,7 +379,11 @@
     "pack": {
       "Package": "pack",
       "Version": "0.1-1",
-      "Source": "unknown",
+      "Source": "CRAN",
+      "RemoteType": "standard",
+      "RemoteRef": "pack",
+      "RemoteRepos": "https://cran.rstudio.com",
+      "RemoteSha": "0.1-1",
       "Hash": "297fdfd63080b703a77be9fa81a4d4ca"
     },
     "pander": {
@@ -445,7 +449,11 @@
     "PythonEmbedInR": {
       "Package": "PythonEmbedInR",
       "Version": "0.3.37",
-      "Source": "unknown",
+      "Source": "CRAN",
+      "RemoteType": "standard",
+      "RemoteRef": "PythonEmbedInR",
+      "RemoteRepos": "http://ran.synapse.org",
+      "RemoteSha": "0.3.37",
       "Hash": "1c9851afda5c6300be59a1d99fc694dc"
     },
     "R6": {
@@ -570,9 +578,13 @@
     },
     "synapser": {
       "Package": "synapser",
-      "Version": "0.6.60",
-      "Source": "unknown",
-      "Hash": "c9a042c939fc3a61142dbc0b73bdb42f"
+      "Version": "0.6.61",
+      "Source": "CRAN",
+      "RemoteType": "standard",
+      "RemoteRef": "synapser",
+      "RemoteRepos": "http://ran.synapse.org",
+      "RemoteSha": "0.6.61",
+      "Hash": "637a14039d0e4e4698fe509c0a0b0e78"
     },
     "syndccutils": {
       "Package": "syndccutils",
