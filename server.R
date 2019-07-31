@@ -244,14 +244,25 @@ server <- function(input, output, session) {
     inputs <- reactiveVal(c())
 
     ## Reactive list of data
-    vals <- reactive(
+    vals <- reactive({
+      validate(
+        need(
+          any(
+            !is.null(indiv()),
+            !is.null(biosp()),
+            !is.null(assay()),
+            !is.null(manifest())
+          ),
+          message = "Please upload some data to view a summary"
+        )
+      )
       list(
         "Individual metadata" = indiv(),
         "Biospecimen metadata" = biosp(),
         "Assay metadata" = assay(),
         "Manifest file" = manifest()
       )
-    )
+    })
 
     ## Update selectInput options for which data files to summarize
     observe({
@@ -289,11 +300,27 @@ server <- function(input, output, session) {
           p100 = NULL
         )
       )
+      ## Validate the data again, otherwise when the user first inputs data an
+      ## error will flash briefly
+      validate(
+        need(
+          !is.null((vals()[[input$file_to_summarize]])),
+          message = FALSE
+        )
+      )
       skim(vals()[[input$file_to_summarize]])
     })
 
     ## visdat summary figure
     output$datafilevisdat <- renderPlot({
+      ## Validate the data again, otherwise when the user first inputs data an
+      ## error will flash briefly
+      validate(
+        need(
+          !is.null((vals()[[input$file_to_summarize]])),
+          message = FALSE
+        )
+      )
       vis_dat(vals()[[input$file_to_summarize]]) +
         theme(text = element_text(size = 16))
     })
