@@ -239,14 +239,40 @@ server <- function(input, output, session) {
       )
     })
 
-    output$datafileskim <- renderPrint({
-      dat <- switch(
-        input$file_to_summarize,
-        "indiv" = indiv(),
-        "biosp" = biosp(),
-        "assay" = assay(),
-        "manifest" = manifest()
+    ## Placeholder for uploaded data that will be used to determine selectInput
+    ## options for the data summary
+    inputs <- reactiveVal(c())
+
+    ## Reactive list of data
+    vals <- reactive(
+      list(
+        "Individual metadata" = indiv(),
+        "Biospecimen metadata" = biosp(),
+        "Assay metadata" = assay(),
+        "Manifest file" = manifest()
       )
+    )
+
+    ## Update selectInput options for which data files to summarize
+    observe({
+      ## Find which ones are not null
+      non_null <- vapply(
+        vals(),
+        function(x) !is.null(x),
+        logical(1)
+      )
+      inputs(names(which(non_null)))
+
+      updateSelectInput(
+        session,
+        "file_to_summarize",
+        label = "Choose file to view",
+        choices = inputs()
+      )
+    })
+
+    ## skimr summary of data
+    output$datafileskim <- renderPrint({
       skim_with(
         numeric = list(
           p0 = NULL,
@@ -263,17 +289,12 @@ server <- function(input, output, session) {
           p100 = NULL
         )
       )
-      skim(dat)
+      skim(vals()[[input$file_to_summarize]])
     })
+
+    ## visdat summary figure
     output$datafilevisdat <- renderPlot({
-      dat <- switch(
-        input$file_to_summarize,
-        "indiv" = indiv(),
-        "biosp" = biosp(),
-        "assay" = assay(),
-        "manifest" = manifest()
-      )
-      vis_dat(dat) +
+      vis_dat(vals()[[input$file_to_summarize]]) +
         theme(text = element_text(size = 16))
     })
   })
