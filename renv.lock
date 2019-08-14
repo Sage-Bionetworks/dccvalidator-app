@@ -132,8 +132,8 @@
       "RemoteRepo": "dccvalidator",
       "RemoteUsername": "Sage-Bionetworks",
       "RemoteRef": "master",
-      "RemoteSha": "0ed41712b37698b4ea0ecafc3519e87b8d756a19",
-      "Hash": "bf10b2bd7420d3b5a0bea7012798bda4"
+      "RemoteSha": "2ac304fa433735ebb9e536077fe31e4843fc25aa",
+      "Hash": "3da1813e42abb8ca518e514f450154af"
     },
     "digest": {
       "Package": "digest",
@@ -412,9 +412,15 @@
     },
     "plotly": {
       "Package": "plotly",
-      "Version": "4.9.0",
-      "Source": "CRAN",
-      "Hash": "d4f8ca9fa024657598c3698df2e12cfb"
+      "Version": "4.9.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "ropensci",
+      "RemoteRepo": "plotly",
+      "RemoteRef": "master",
+      "RemoteSha": "a689263996ae0938c2f18987877924178dba9cf6",
+      "Hash": "d1417b71a1cb1aa149e420209e004b5b"
     },
     "plyr": {
       "Package": "plyr",
@@ -590,15 +596,14 @@
       "Package": "syndccutils",
       "Version": "0.0.0.9000",
       "Source": "GitHub",
-      "Remotes": "ropensci/plotly",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteRepo": "syndccutils",
       "RemoteUsername": "Sage-Bionetworks",
-      "RemoteRef": "master",
-      "RemoteSha": "640319e9053cb66c543f7fbad4c54ff43cea9b4e",
+      "RemoteRepo": "syndccutils",
       "RemoteSubdir": "R",
-      "Hash": "60e696c882c71434290d8410804c165f"
+      "RemoteRef": "master",
+      "RemoteSha": "8ebbb462d3bd502e00d83b5f274ace1f8c18c2d8",
+      "Hash": "76760a91bafff1222458d4a6fb9f05f4"
     },
     "sys": {
       "Package": "sys",
