@@ -6,3 +6,4 @@
 lib/*
 restart.txt
 scratch.R
+.venv
